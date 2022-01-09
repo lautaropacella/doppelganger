@@ -1,0 +1,1 @@
+web: sh setup.sh && streamlit run tango_generator.py
