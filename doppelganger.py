@@ -95,8 +95,8 @@ if img_buffer:
         for index, matched in enumerate(face_doc.matches[0:5]):
             uri = matched.uri.split("/")[-1]
             uris.append(uri)
-        with middle:
-            matches = st.columns(5)
-            for i in range(len(matches)):
-                image = Image.open("celeba/" + uris[i])
-                matches[i].image(image, caption=f"""Doppelganger #{i+1}""")
+        
+        matches = st.columns(5)
+        for i in range(len(matches)):
+            image = Image.open("celeba/" + uris[i])
+            matches[i].image(image, caption=f"""Doppelganger #{i+1}""")
