@@ -28,11 +28,13 @@ def load_embeddings():
     return embeddings
 
 
-## Web Page Format ##
+## Web App Format ##
 st.markdown(
     "<h1 style='text-align: center; color: white;'>👬 Deep Doppelgängers 🧑‍🤝‍🧑</h1>",
     unsafe_allow_html=True,
 )
+
+st.markdown("<br>", unsafe_allow_html=True)
 
 """
 [![Star](https://img.shields.io/github/stars/lautaropacella/doppelganger.svg?logo=github&style=social)](https://github.com/lautaropacella/doppelganger)
@@ -58,7 +60,7 @@ with st.spinner("Cargando caras de celebridades..."):
     embeddings = load_embeddings()
 
 img_buffer = st.file_uploader(
-    "Subir una foto", accept_multiple_files=False, type=IMAGE_FORMATS
+    "Cargue su retrato aquí", accept_multiple_files=False, type=IMAGE_FORMATS
 )
 if img_buffer:
     with st.spinner("Detectando rostro..."):
@@ -73,12 +75,8 @@ if img_buffer:
         ## Output
         original, middle, cropped = st.columns(3)
 
-        original.markdown("### Foto original")
-        original_picture = Image.open(img_buffer)
-        original.image(original_picture, use_column_width=True)
-
-        cropped.markdown("### Rostro detectado")
-        cropped.image(face_cropped, channels="BGR", use_column_width=True)
+        middle.markdown("### Rostro detectado")
+        middle.image(face_cropped, channels="BGR", use_column_width=True)
 
         """---"""
 
