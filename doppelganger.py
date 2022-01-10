@@ -35,14 +35,14 @@ st.markdown(
 )
 
 """
-[![Star](https://img.shields.io/github/stars/lautaropacella/tango-generator.svg?logo=github&style=social)](https://github.com/lautaropacella/tango-generator)
+[![Star](https://img.shields.io/github/stars/lautaropacella/doppelganger.svg?logo=github&style=social)](https://github.com/lautaropacella/doppelganger)
 &nbsp[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/lautaro-pacella/)
 &nbsp[![Buy me a coffee](https://img.shields.io/badge/Buy%20me%20a%20coffee--yellow.svg?logo=buy-me-a-coffee&logoColor=orange&style=social)](https://www.buymeacoffee.com/lautaropacella)
 """
 st.markdown("<br>", unsafe_allow_html=True)
 
 """
-##### **El inicio de este proyecto fue la curiosidad por saber si una máquina vería los parecidos entre rostros tan bien cómo los humanos.** \n
+##### **¿Puede una máquina ver las similitudes cómo los humanos?** \n
 En este caseo, usted será el juez sobre esto
 - Para empezar, simplemente cargue una foto con su rostro. Mientras mejor sea la calidad, más efectivo será el resultado.
 ---
@@ -72,7 +72,7 @@ if img_buffer:
         for left, top, right, bottom in face:
             face_cropped = crop_face(img, left, top, right, bottom)
         ## Output
-        original, cropped, middle = st.columns(3)
+        original, middle, cropped = st.columns(3)
 
         original.markdown("### Foto original")
         original_picture = Image.open(img_buffer)
