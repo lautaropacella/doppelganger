@@ -46,6 +46,8 @@ st.markdown("<br>", unsafe_allow_html=True)
 """
 ##### **¿Puede una máquina ver las similitudes como los humanos?** \n
 - Para empezar, simplemente cargue una foto con su rostro. Mientras mejor sea la calidad, más efectivo será el resultado.
+- Los parecidos van a variar dependiendo de diferentes factores de la imagen que uses, por ejemplo, la luminosidad, el ángulo, si usas anteojos, etc.
+- Se van a mostrarán las 5 celebridades más parecidas, en el órden de similtud respectivo.
 ---
 """
 with st.expander("Más Info"):
