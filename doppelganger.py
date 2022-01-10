@@ -6,7 +6,7 @@ import torch
 from jina import Document
 from docarray import DocumentArray
 from PIL import Image
-from functions import crop_face, face_features
+from functions import crop_face
 
 st.set_page_config(page_title="Deep Doppelgangers", layout="wide", page_icon="🦊")
 
