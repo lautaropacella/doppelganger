@@ -35,14 +35,14 @@ st.markdown(
 )
 
 """
-[![Star](https://img.shields.io/github/stars/lautaropacella/doppelganger.svg?logo=github&style=social)](https://github.com/lautaropacella/doppelganger)\n
-&nbsp[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/lautaro-pacella/)\n
+[![Star](https://img.shields.io/github/stars/lautaropacella/doppelganger.svg?logo=github&style=social)](https://github.com/lautaropacella/doppelganger)
+&nbsp[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/lautaro-pacella/)
 &nbsp[![Buy me a coffee](https://img.shields.io/badge/Buy%20me%20a%20coffee--yellow.svg?logo=buy-me-a-coffee&logoColor=orange&style=social)](https://www.buymeacoffee.com/lautaropacella)
 """
 st.markdown("<br>", unsafe_allow_html=True)
 
 """
-##### **¿Puede una máquina ver las similitudes cómo los humanos?** \n
+##### **¿Puede una máquina ver las similitudes como los humanos?** \n
 - Para empezar, simplemente cargue una foto con su rostro. Mientras mejor sea la calidad, más efectivo será el resultado.
 ---
 """
@@ -95,8 +95,8 @@ if img_buffer:
         for index, matched in enumerate(face_doc.matches[0:5]):
             uri = matched.uri.split("/")[-1]
             uris.append(uri)
-
-        matches = st.columns(5)
-        for i in range(len(matches)):
-            image = Image.open("celeba/" + uris[i])
-            matches[i].image(image, caption=f"""Doppelganger #{i+1}""")
+        with middle:
+            matches = st.columns(5)
+            for i in range(len(matches)):
+                image = Image.open("celeba/" + uris[i])
+                matches[i].image(image, caption=f"""Doppelganger #{i+1}""")
