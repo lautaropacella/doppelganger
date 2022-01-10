@@ -1,2 +1,0 @@
-embeddings.lz4 filter=lfs diff=lfs merge=lfs -text
-model.pth filter=lfs diff=lfs merge=lfs -text
