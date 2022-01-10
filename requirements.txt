@@ -8,4 +8,3 @@ torch
 torchvision
 jina==2.6.4
 Pillow==8.4.0
-deepface==0.0.68

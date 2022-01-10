@@ -8,26 +8,31 @@ from docarray import DocumentArray
 from PIL import Image
 from functions import crop_face, face_features
 
-st.set_page_config(page_title='Deep Doppelgangers', layout='wide',  page_icon='🦊')
+st.set_page_config(page_title="Deep Doppelgangers", layout="wide", page_icon="🦊")
 
 ## Constants
 MODEL_URI = "model.pth"
 EMBEDDINGS_URI = "embeddings.lz4"
-IMAGE_FORMATS = ['jpg','jpeg','png']
+IMAGE_FORMATS = ["jpg", "jpeg", "png"]
 
 ## Main Functions
 @st.cache(allow_output_mutation=True)
 def load_model():
-    model =  torch.load(MODEL_URI, map_location=torch.device('cpu'))
+    model = torch.load(MODEL_URI, map_location=torch.device("cpu"))
     return model
+
 
 @st.cache(allow_output_mutation=True)
 def load_embeddings():
     embeddings = DocumentArray.load_binary(EMBEDDINGS_URI)
     return embeddings
 
+
 ## Web Page Format ##
-st.markdown("<h1 style='text-align: center; color: white;'>👬 Deep Doppelgängers 🧑‍🤝‍🧑</h1>", unsafe_allow_html=True)
+st.markdown(
+    "<h1 style='text-align: center; color: white;'>👬 Deep Doppelgängers 🧑‍🤝‍🧑</h1>",
+    unsafe_allow_html=True,
+)
 
 """
 [![Star](https://img.shields.io/github/stars/lautaropacella/tango-generator.svg?logo=github&style=social)](https://github.com/lautaropacella/tango-generator)
@@ -41,21 +46,23 @@ En este caseo, usted será el juez sobre esto
 - Para empezar, simplemente cargue una foto con su rostro. Mientras mejor sea la calidad, más efectivo será el resultado.
 ---
 """
-with st.expander('Más Info'):
+with st.expander("Más Info"):
     """
     - Para este proyecto, se entrenó un modelo de redes neuronales convolucionales profundas, más especificamente, un modelo de redes residuales (ResNet) a partir del [Totally-Looks-Like Dataset](https://sites.google.com/view/totally-looks-like-dataset). \n
     - Las similitudes se buscan en base a un recorte del [CelebA Dataset](https://mmlab.ie.cuhk.edu.hk/projects/CelebA.html) de 3000 celebridades.
     - Las características del rostro cómo género, edad, etnia y emoción se generán a partir de redes convolucionaes pre-entrenadas para estas predicciones.
     """
 
-with st.spinner('Cargando Modelos...'):
-        model = load_model()
-with st.spinner('Cargando caras de celebridades...'): 
-        embeddings = load_embeddings()
+with st.spinner("Cargando Modelos..."):
+    model = load_model()
+with st.spinner("Cargando caras de celebridades..."):
+    embeddings = load_embeddings()
 
-img_buffer = st.file_uploader("Subir una foto", accept_multiple_files = False, type = IMAGE_FORMATS)
+img_buffer = st.file_uploader(
+    "Subir una foto", accept_multiple_files=False, type=IMAGE_FORMATS
+)
 if img_buffer:
-    with st.spinner('Detectando rostro...'):
+    with st.spinner("Detectando rostro..."):
         ## Read Image
         file_bytes = np.asarray(bytearray(img_buffer.read()), dtype=np.uint8)
         img = cv2.imdecode(file_bytes, 1)
@@ -63,39 +70,34 @@ if img_buffer:
         face, confidence = cv.detect_face(img)
         ## Crop Face & get features
         for left, top, right, bottom in face:
-            face_cropped = crop_face(img,left,top,right,bottom)
-        age,gender_icon,race,emotion_icon = face_features(face_cropped)
+            face_cropped = crop_face(img, left, top, right, bottom)
         ## Output
         original, cropped, middle = st.columns(3)
 
-        original.markdown('### Foto original')
+        original.markdown("### Foto original")
         original_picture = Image.open(img_buffer)
         original.image(original_picture, use_column_width=True)
 
-        cropped.markdown('### Rostro detectado')
+        cropped.markdown("### Rostro detectado")
         cropped.image(face_cropped, channels="BGR", use_column_width=True)
 
-        '''---'''
-    with st.spinner('Analizando rostro...'):
-        middle.markdown('''## Características detectadas''')
-        middle.markdown(f'#### Edad: {age}')
-        middle.markdown(f'#### Género: {gender_icon}')
-        middle.markdown(f'#### Etnia: {race}')
-        middle.markdown(f'#### Emoción: {emotion_icon}')
+        """---"""
 
-    with st.spinner('Buscando parecidos...'):
+    with st.spinner("Buscando parecidos..."):
         ## Format for Jina
         face_doc = Document(blob=face_cropped)
-        face_doc.set_image_blob_shape(shape=(224, 224)).set_image_blob_normalization().set_image_blob_channel_axis(-1, 0)
-        face_doc.embed(model, device = 'cpu')
+        face_doc.set_image_blob_shape(
+            shape=(224, 224)
+        ).set_image_blob_normalization().set_image_blob_channel_axis(-1, 0)
+        face_doc.embed(model, device="cpu")
         face_doc.match(embeddings)
 
         uris = []
-        for index,matched in enumerate(face_doc.matches[0:5]):
-            uri = matched.uri.split('/')[-1]
+        for index, matched in enumerate(face_doc.matches[0:5]):
+            uri = matched.uri.split("/")[-1]
             uris.append(uri)
-        
+
         matches = st.columns(5)
         for i in range(len(matches)):
-            image = Image.open('celeba/'+uris[i])
-            matches[i].image(image, caption=f'''Doppelganger #{i+1}''')
+            image = Image.open("celeba/" + uris[i])
+            matches[i].image(image, caption=f"""Doppelganger #{i+1}""")
