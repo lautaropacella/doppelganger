@@ -1,8 +1,4 @@
 import numpy as np
-from deepface import DeepFace
-import streamlit as st
-import random
-
 
 def crop_face(img, left, top, right, bottom):
 

@@ -37,6 +37,7 @@ st.markdown(
 """
 [![Star](https://img.shields.io/github/stars/lautaropacella/tango-generator.svg?logo=github&style=social)](https://github.com/lautaropacella/tango-generator)
 &nbsp[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/lautaro-pacella/)
+&nbsp[![Buy me a coffee](https://img.shields.io/badge/Buy%20me%20a%20coffee--yellow.svg?logo=buy-me-a-coffee&logoColor=orange&style=social)](https://www.buymeacoffee.com/lautaropacella)
 """
 st.markdown("<br>", unsafe_allow_html=True)
 
@@ -50,7 +51,6 @@ with st.expander("Más Info"):
     """
     - Para este proyecto, se entrenó un modelo de redes neuronales convolucionales profundas, más especificamente, un modelo de redes residuales (ResNet) a partir del [Totally-Looks-Like Dataset](https://sites.google.com/view/totally-looks-like-dataset). \n
     - Las similitudes se buscan en base a un recorte del [CelebA Dataset](https://mmlab.ie.cuhk.edu.hk/projects/CelebA.html) de 3000 celebridades.
-    - Las características del rostro cómo género, edad, etnia y emoción se generán a partir de redes convolucionaes pre-entrenadas para estas predicciones.
     """
 
 with st.spinner("Cargando Modelos..."):
