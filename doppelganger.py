@@ -3,8 +3,8 @@ import numpy as np
 import cv2
 import cvlib as cv
 import torch
-from docarray import DocumentArray
 from jina import Document
+from docarray import DocumentArray
 from PIL import Image
 from functions import crop_face, face_features
 
